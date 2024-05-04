@@ -1,37 +1,29 @@
-## Device Orientation Plugin for Xamarin and Windows
+## Device Orientation Plugin for .Net Maui and Windows
 
 Simple cross-platform plugin to work with screen orientation of mobile device.
 
+Based on [Plugin.DeviceOrientation](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation) by [Yauheni Pakala](https://github.com/wcoder/)
+
 [iOS demo](https://youtu.be/3eQDrHMPmE4)
 
-[Xamarin.Forms sample](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/tree/master/samples/Xamarin.Forms-sample)
+[Maui sample](https://github.com/compusport/Plugin.Maui.DeviceOrientation/tree/master/samples/Plugin.Maui.DeviceOrientation.Sample)
 
 #### Setup
 
-* Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.DeviceOrientation)](https://www.nuget.org/packages/Plugin.DeviceOrientation/)
+* Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.DeviceOrientation)](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientation/)
 * Install into your PCL/NetStandard project and Platform Specific projects
 
 #### Platform Support
 
 |Platform|Version|
 | ------------------- | :------------------: |
-|Xamarin.iOS|iOS 10+|
-|Xamarin.Android|API 19+|
+|iOS|iOS 14.2+|
+|Android|API 21+|
 |Windows 10 UWP|10.0.16299+|
-
-v2.0 updated to NetStandard 2.0
-
-#### Deprecated platforms
-
-* Windows Phone Silverlight
-* Windows Phone RT
-* Windows Store RT
-
-Implementations for unsupported platforms contains [here](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/tree/deprecated/src/DeviceOrientation/).
 
 ## API Usage
 
-Call `CrossDeviceOrientation.Current` from any project or PCL to gain access to APIs.
+Call `DeviceOrientation.Default` from any project to gain access to APIs.
 
 ```csharp
 /// <summary>
@@ -143,6 +135,7 @@ public override void OnConfigurationChanged(Configuration newConfig)
 
 ## Contributors
 * [Yauheni Pakala](https://github.com/wcoder)
+* [Christian Lavallee](https://github.com/compusport)
 
 ---
-&copy; 2016-2019 MIT License
+&copy; 2016-2024 MIT License
