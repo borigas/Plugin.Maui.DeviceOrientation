@@ -4,7 +4,7 @@ using UIKit;
 
 namespace Plugin.Maui.DeviceOrientation;
 
-partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
+public partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
 {
     private static DeviceOrientations _lockedOrientation = DeviceOrientations.Undefined;
 
