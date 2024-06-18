@@ -2,7 +2,7 @@
 
 namespace Plugin.Maui.DeviceOrientation;
 
-partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
+public partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
 {
     private readonly DisplayInformation _displayInformation;
     private bool _disposed;

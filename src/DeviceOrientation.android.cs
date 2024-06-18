@@ -7,7 +7,7 @@ using Android.Views;
 
 namespace Plugin.Maui.DeviceOrientation;
 
-partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
+public partial class DeviceOrientationImplementation : BaseDeviceOrientationImplementation, IDeviceOrientation
 {
     private readonly OrientationListener _listener;
     private bool _disposed;
