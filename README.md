@@ -10,7 +10,7 @@ Based on [Plugin.DeviceOrientation](https://github.com/wcoder/Xamarin.Plugin.Dev
 
 #### Setup
 
-* Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.DeviceOrientation)](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientation/)
+* Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.Maui.DeviceOrientation)](https://www.nuget.org/packages/Plugin.Maui.DeviceOrientation/)
 * Install into your PCL/NetStandard project and Platform Specific projects
 
 #### Platform Support
