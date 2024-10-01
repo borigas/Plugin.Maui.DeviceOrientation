@@ -171,6 +171,10 @@ public class OrientationListener : OrientationEventListener
 
     public override void OnOrientationChanged(int rotationDegrees)
     {
+        if (Platform.CurrentActivity == null)
+        {
+            return;
+        }
         var currentOrientation = DeviceOrientation.Default.CurrentOrientation;
 
         if (currentOrientation != _cachedOrientation)
