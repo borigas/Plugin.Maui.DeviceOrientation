@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Plugin.Maui.DeviceOrientation;
+﻿namespace Plugin.Maui.DeviceOrientation;
 
 public abstract class BaseDeviceOrientationImplementation : IDeviceOrientation, IDisposable
 {
@@ -27,6 +25,8 @@ public abstract class BaseDeviceOrientationImplementation : IDeviceOrientation, 
     /// </summary>
     public event OrientationChangedEventHandler OrientationChanged;
 
+    public event LoggingEventHandler LogEvent;
+
     /// <summary>
     ///     Dispose of class and parent classes
     /// </summary>
@@ -43,6 +43,11 @@ public abstract class BaseDeviceOrientationImplementation : IDeviceOrientation, 
     protected virtual void OnOrientationChanged(OrientationChangedEventArgs e)
     {
         OrientationChanged?.Invoke(this, e);
+    }
+
+    protected virtual void OnLogEvent(LoggingEventArgs e)
+    {
+        LogEvent?.Invoke(this, e);
     }
 
     /// <summary>

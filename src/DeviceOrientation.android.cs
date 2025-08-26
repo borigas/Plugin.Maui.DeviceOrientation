@@ -37,7 +37,7 @@ public partial class DeviceOrientationImplementation : BaseDeviceOrientationImpl
 
     public DeviceOrientationImplementation()
     {
-        _listener = new OrientationListener(OnOrientationChanged);
+        _listener = new OrientationListener(OnOrientationChanged, OnLogEvent);
 
         if (_listener.CanDetectOrientation())
         {
@@ -145,13 +145,14 @@ public partial class DeviceOrientationImplementation : BaseDeviceOrientationImpl
 public class OrientationListener : OrientationEventListener
 {
     private readonly Action<OrientationChangedEventArgs> _onOrientationChanged;
-
+    private readonly Action<LoggingEventArgs> _onLogEvent;
     private DeviceOrientations _cachedOrientation;
 
-    public OrientationListener(Action<OrientationChangedEventArgs> onOrientationChanged)
+    public OrientationListener(Action<OrientationChangedEventArgs> onOrientationChanged, Action<LoggingEventArgs> onLogEvent)
         : base(Platform.AppContext, SensorDelay.Normal)
     {
         _onOrientationChanged = onOrientationChanged;
+        _onLogEvent = onLogEvent;
     }
 
     public OrientationListener(IntPtr javaReference, JniHandleOwnership transfer)
@@ -171,19 +172,43 @@ public class OrientationListener : OrientationEventListener
 
     public override void OnOrientationChanged(int rotationDegrees)
     {
-        if (Platform.CurrentActivity == null)
+        try
         {
-            return;
-        }
-        var currentOrientation = DeviceOrientation.Default.CurrentOrientation;
-
-        if (currentOrientation != _cachedOrientation)
-        {
-            _cachedOrientation = currentOrientation;
-
-            _onOrientationChanged(new OrientationChangedEventArgs
+            if (Platform.CurrentActivity == null)
             {
-                Orientation = currentOrientation
+                return;
+            }
+            var currentOrientation = DeviceOrientation.Default.CurrentOrientation;
+
+            if (currentOrientation != _cachedOrientation)
+            {
+                _cachedOrientation = currentOrientation;
+
+                _onOrientationChanged(new OrientationChangedEventArgs
+                {
+                    Orientation = currentOrientation
+                });
+            }
+        }
+        catch (System.Exception ex)
+        {
+            var activity = Platform.CurrentActivity;
+            var windowManager = activity?.WindowManager;
+            var display = windowManager?.DefaultDisplay;
+            var rotation = display?.Rotation;
+
+            string msg = $"{ex.GetType().Name} in OnOrientationChanged. " +
+                         $"Platform.CurrentActivity: {(activity == null ? "null" : "not null")}, " +
+                         $"WindowManager: {(windowManager == null ? "null" : "not null")}, " +
+                         $"DefaultDisplay: {(display == null ? "null" : "not null")}, " +
+                         $"Rotation: {(rotation == null ? "null" : rotation.ToString())}. " +
+                         $"This can happen when the app is paused or stopped. Orientation changes will not be reported until the app is resumed. " +
+                         ex.Message;
+
+            _onLogEvent?.Invoke(new LoggingEventArgs
+            {
+                Message = msg,
+                Exception = ex,
             });
         }
     }

@@ -15,6 +15,8 @@ public interface IDeviceOrientation
     /// </summary>
     event OrientationChangedEventHandler OrientationChanged;
 
+    event LoggingEventHandler LogEvent;
+
     /// <summary>
     ///     Lock orientation in the specified position
     /// </summary>
@@ -44,3 +46,11 @@ public class OrientationChangedEventArgs : EventArgs
 /// <param name="sender"></param>
 /// <param name="e"></param>
 public delegate void OrientationChangedEventHandler(object sender, OrientationChangedEventArgs e);
+
+public class LoggingEventArgs : EventArgs
+{
+    public required string Message { get; set; }
+    public Exception? Exception { get; set; }
+}
+
+public delegate void LoggingEventHandler(object sender, LoggingEventArgs e);
